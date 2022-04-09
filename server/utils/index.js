@@ -1,0 +1,1 @@
+module.exports.stateKey = 'spotify_auth_state';

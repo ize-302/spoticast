@@ -1,0 +1,39 @@
+{
+  "name": "spoticast",
+  "version": "0.1.0",
+  "description": "Spotify podcast",
+  "main": "server/index.js",
+  "repository": {
+    "type": "git",
+    "repository": "https://github.com/ize-302/spoticast.git"
+  },
+  "author": "Ize <adavizeozorku@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "14.17.0"
+  },
+  "scripts": {
+    "client:install": "cd client && yarn",
+    "client": "cd client && yarn start",
+    "server": "node server",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "node server",
+    "heroku-postbuild": "cd client/ && yarn && yarn install --production && yarn build"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^4.5.5",
+    "color.js": "^1.2.0",
+    "connect-history-api-fallback": "^1.6.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.8",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "react-heartbeat": "^1.0.0",
+    "react-icons": "^4.3.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
