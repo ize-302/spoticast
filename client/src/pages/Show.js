@@ -103,7 +103,7 @@ const Show = () => {
 
             <Box marginTop={[8, 0]}>
               <Text fontWeight={600} marginBottom={5} fontSize={[24, 24, 32]}>Episodes</Text>
-              <Stack paddingBottom={10}>
+              <Stack>
                 <SlideFade offsetY='-100px' in={isOpen}>
                   {metadata?.episodes?.items.map(episode => (
                     <Stack borderLeft={currentEpisode?.id === episode.id && '5px solid'} borderLeftColor={currentEpisode?.id === episode.id && 'brand.spotify-green'} transition={['all .25s cubic-bezier(.645,.045,.355,1) 0s']} key={episode.id} gap={3} direction={['column', 'column', 'row']} borderTop="1px solid #333" paddingY={[4]} paddingX={[2,2,4]} _hover={{ bg: ['transparent', 'transparent', '#333'], rounded: 'md', transform: ['scale(1)', 'scale(1)', 'scale(1.02)'] }}>

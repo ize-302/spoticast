@@ -22,7 +22,7 @@ const Home = () => {
       {/* saved shows */}
       <SlideFade offsetY='-20px' in={isOpen}>
         <Heading marginTop={[5, 10]} fontSize={20}>Saved shows</Heading>
-        <SimpleGrid minChildWidth='220px' marginY={[5, 10]} spacing={['10px', '30px']}>
+        <SimpleGrid minChildWidth='220px' marginTop={[5, 10]} spacing={['10px', '30px']}>
           {savedShows.map((item) => (
             <ShowCard key={item.show.id} item={item.show} />
           ))

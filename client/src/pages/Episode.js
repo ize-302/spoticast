@@ -61,7 +61,7 @@ const Episode = () => {
               </Flex>
             </Box>
           </ScaleFade>
-          <Stack marginTop={[0, 10, 20]} marginBottom={[10, 10, 20]} gap={[10, 14]} width="100%" paddingX={4} maxW="1200px" marginX="auto">
+          <Stack marginTop={[0, 10, 20]} gap={[10, 14]} width="100%" paddingX={4} maxW="1200px" marginX="auto">
             <SlideFade offsetY='20px' in={isOpen}>
               <Box marginTop={10}>
                 <Text fontWeight={600} fontSize={[24, 24, 32]}>Episode description</Text>

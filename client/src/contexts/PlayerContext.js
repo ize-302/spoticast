@@ -42,7 +42,6 @@ export const PlayerProvider = ({ children }) => {
     };
   }, []);
 
-
   React.useEffect(() => {
     setPlaybackVolumne(volumePercent)
   }, [volumePercent]);

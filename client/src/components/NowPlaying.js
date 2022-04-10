@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Stack, Image, Icon, SliderTrack, SliderThumb, SliderFilledTrack, Slider, Text, Grid } from '@chakra-ui/react';
+import { Box, Stack, Image, Icon, SliderTrack, SliderThumb, SliderFilledTrack, Slider, Text, Grid, Progress } from '@chakra-ui/react';
 import { MdPlayArrow, MdPause, MdVolumeOff } from "react-icons/md";
 import { usePlayer } from '../contexts/PlayerContext';
+import { formatDurationForHumans } from '../utils';
 
 const NowPlaying = () => {
   const { playEpisode,
@@ -15,7 +16,7 @@ const NowPlaying = () => {
   return (
     <>
       {currentEpisode && (
-        <Stack justifyContent='center' direction='row' position='sticky' bottom={0} right={0} width='100%' padding={[0, 2, 2, 4]} gap={1}>
+        <Stack justifyContent='center' direction='row' position='fixed' bottom={0} right={0} width='100%' padding={[0, 2, 2, 4]} gap={1}>
           <Stack direction='row' alignItems='center' gap={2} bg="#333" padding={5} rounded={["none", "lg"]}>
             <Stack justifyContent='center' alignItems="center" position='relative' width='70px' height='70px' >
               <Image rounded='md' src={currentEpisode?.images[0].url} />
@@ -28,6 +29,10 @@ const NowPlaying = () => {
             <Box>
               <Text fontSize={[14,14,16]}>{currentEpisode?.description.length > 50 ? currentEpisode?.description.slice(0, 50) + '...' : currentEpisode?.name}</Text>
               <Text color='#999' fontSize={12}>{currentEpisode?.name.length > 50 ? currentEpisode?.name.slice(0, 50) + '...' : currentEpisode?.name}</Text>
+              <Stack direction={['column', 'row']} spacing={2} alignItems={['flex-start', 'center']} marginTop={2}>
+                <Progress width='150px' rounded='md' height="6px" bg='#444' colorScheme='green' size='sm' value={(currentEpisode.resume_point.resume_position_ms / currentEpisode.duration_ms) * 100} />
+                <Text color="#888" fontSize={14}>{formatDurationForHumans(currentEpisode.duration_ms - currentEpisode.resume_point.resume_position_ms)} left</Text>
+              </Stack>
             </Box>
             <Grid placeItems='center' bg='brand.spotify-green' rounded='full' padding={2} cursor='pointer'>
               {!playing ? (<Icon color="#000" onClick={() => playEpisode(currentEpisode)} w={8} height={8} as={MdPlayArrow} />) : (<Icon color="#000" onClick={() => pauseEpisode()} w={8} height={8} as={MdPause} />)}

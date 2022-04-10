@@ -27,7 +27,7 @@ const App = () => {
   return (
     <>
       {accessToken ? (
-        <Box>
+        <Box position='relative' paddingBottom={32}>
           <NavBar />
           <Router primary={false}>
             <Home path="/" />
