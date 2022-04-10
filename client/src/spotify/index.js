@@ -81,7 +81,7 @@ const headers = {
  * Get User's saved shows
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-shows
  */
-export const getSavedShows = () => axios.get(`https://api.spotify.com/v1/me/shows`, { headers });
+export const getSavedShows = (offset) => axios.get(`https://api.spotify.com/v1/me/shows?offset=${offset}`, { headers });
 
 
 /**
@@ -125,7 +125,7 @@ export const UnfollowShows = (ids) => axios.delete(`https://api.spotify.com/v1/m
 * search for shows/episodes
 * https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-shows-user
 */
-export const search = (q) => axios.get(`https://api.spotify.com/v1/search?q=${q}&type=show`, { headers });
+export const search = (q, offset) => axios.get(`https://api.spotify.com/v1/search?q=${q}&type=show&offset=${offset}`, { headers });
 
 
 /**
