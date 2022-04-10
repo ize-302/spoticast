@@ -33,7 +33,7 @@ const SearchResult = () => {
       }
     };
     catchErrors(fetchData());
-  }, [location.search, query, offset, results]);
+  }, [location.search, query, offset]);
   
   return (
     <Box width="100%" paddingX={3} maxW="1200px" margin="0 auto">
