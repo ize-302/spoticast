@@ -27,7 +27,7 @@ const SearchResult = () => {
       if (!offset) {
         setresults(data.shows.items)
       } else {
-        const copyResult = results
+        const copyResult = [...results]
         setresults([])
         setresults([...copyResult, ...data.shows.items])
       }
@@ -39,7 +39,7 @@ const SearchResult = () => {
     <Box width="100%" paddingX={3} maxW="1200px" margin="0 auto">
       {/* saved shows */}
       <SlideFade offsetY='-20px' in={isOpen}>
-        <Heading marginTop={[5, 10]} fontSize={20}>Search Result</Heading>
+        <Heading marginTop={[5, 10]} fontSize={[24, 24, 32]}>Search Result</Heading>
         <SimpleGrid minChildWidth='220px' marginY={[5, 10]} spacing={['10px', '30px']}>
           {results.map((item, index) => (
             <ShowCard key={index} item={item} />

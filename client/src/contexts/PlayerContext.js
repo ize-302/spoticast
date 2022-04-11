@@ -73,7 +73,6 @@ export const PlayerProvider = ({ children }) => {
     })
     const selected_device_id = [device_ids[0]['id']]
     await transferPlayback(selected_device_id)
-    console.log(device_ids[0])
     return device_ids
   }
 

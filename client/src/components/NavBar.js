@@ -14,7 +14,6 @@ const NavBar = () => {
     onToggle()
   }, []);
 
-  console.log(window.location.href)
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await getUser();

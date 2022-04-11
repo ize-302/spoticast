@@ -22,8 +22,6 @@ const fonts = {
 
 const theme = extendTheme({ colors, fonts })
 
-const greeting = 'HGllo';
-
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
