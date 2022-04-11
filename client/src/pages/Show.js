@@ -1,5 +1,5 @@
 import React from 'react'
-import { getShowMetadata, checkUserSavedShows, subscribeToShows, UnfollowShows } from '../spotify'
+import { getShowMetadata, checkUserSavedShows, subscribeToShows, UnfollowShows, getShowEpisodes } from '../spotify'
 import { catchErrors, formatDurationForHumans } from '../utils';
 import { useParams, Link as ReachLink, navigate } from "@reach/router"
 import { Box, useDisclosure, Image, Text, Heading, Flex, Link, SlideFade, Progress, ScaleFade, Grid, Stack, Button, Icon } from '@chakra-ui/react';
@@ -8,15 +8,19 @@ import dayjs from 'dayjs'
 import Loading from '../components/Loading';
 import { MdPlayArrow, MdBarChart } from "react-icons/md";
 import { usePlayer } from '../contexts/PlayerContext';
+import More from '../components/More';
 
 const Show = () => {
   const { currentEpisode, pauseEpisode, playEpisode } = usePlayer();
   const { isOpen, onToggle } = useDisclosure()
   const [metadata, setmetadata] = React.useState(null);
+  const [episodes, setepisodes] = React.useState([]);
   const [colors, setcolors] = React.useState([])
   const [following, setfollowing] = React.useState(false);
   const [isloading, setisloading] = React.useState(true);
   const params = useParams();
+  const [offset, setoffset] = React.useState(0);
+  const [next, setnext] = React.useState(null);
 
 
   // fectch show
@@ -26,6 +30,18 @@ const Show = () => {
     setcolors(getcolors)
     setmetadata(data)
   };
+
+  const fetchEpisodes = async () => {
+    const {data} = await getShowEpisodes(params.id, offset)
+    setnext(data.next)
+    if (!offset) {
+      setepisodes(data.items)
+    } else {
+      const copyEpisodes = [...episodes]
+      setepisodes([])
+      setepisodes([...copyEpisodes, ...data.items])
+    }
+  }
 
   // follow / unfollow show
   const handleFollow = () => {
@@ -72,10 +88,11 @@ const Show = () => {
 
 
   React.useEffect(() => {
+    fetchEpisodes()
     fetchShow()
     showIsSaved()
     catchErrors(fetchShow());
-  }, []);
+  }, [offset]);
 
   return (
     <Box>
@@ -105,7 +122,7 @@ const Show = () => {
               <Text fontWeight={600} marginBottom={5} fontSize={[24, 24, 32]}>Episodes</Text>
               <Stack>
                 <SlideFade offsetY='-100px' in={isOpen}>
-                  {metadata?.episodes?.items.map(episode => (
+                  {episodes.map(episode => (
                     <Stack borderLeft={currentEpisode?.id === episode.id && '5px solid'} borderLeftColor={currentEpisode?.id === episode.id && 'brand.spotify-green'} transition={['all .25s cubic-bezier(.645,.045,.355,1) 0s']} key={episode.id} gap={3} direction={['column', 'column', 'row']} borderTop="1px solid #333" paddingY={[4]} paddingX={[2,2,4]} _hover={{ bg: ['transparent', 'transparent', '#333'], rounded: 'md', transform: ['scale(1)', 'scale(1)', 'scale(1.02)'] }}>
                       <Image cursor='pointer' onClick={() => navigate(`/episode/${episode.id}`)} width={['100px']} height={['100px']} boxShadow='lg' rounded="md" src={episode?.images[0].url} />
                       <Box>
@@ -125,6 +142,7 @@ const Show = () => {
                   ))}
                 </SlideFade>
               </Stack>
+              {next && <Box mt={10}><More oldOffset={offset} setNewOffset={() => setoffset(offset+20)} label="More episodes..." /></Box>}
             </Box>
           </Stack>
         </>

@@ -94,7 +94,7 @@ export const getShowMetadata = (id) => axios.get(`https://api.spotify.com/v1/sho
  * List episodes for a show
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-shows-episodes
  */
-export const getShowEpisodes = (id) => axios.get(`https://api.spotify.com/v1/shows/${id}/episodes`, { headers });
+export const getShowEpisodes = (id, offset) => axios.get(`https://api.spotify.com/v1/shows/${id}/episodes?offset=${offset}`, { headers });
 
 /**
  * Get information about an episode
