@@ -4,7 +4,7 @@
 
 Built with the following:
 
-- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api/reference/#/)
 - [Create React App](https://github.com/facebook/create-react-app)
 - [Express](https://expressjs.com/)
 - [Reach Router](https://reach.tech/router)
