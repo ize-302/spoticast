@@ -1,4 +1,4 @@
-import { Box, Heading, SimpleGrid, SlideFade, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid, SlideFade, useDisclosure, Grid } from '@chakra-ui/react';
 import React from 'react'
 import { getSavedShows } from '../spotify'
 import { catchErrors } from '../utils';
@@ -31,15 +31,19 @@ const Home = () => {
   return (
     <Box width="100%" paddingX={3} maxW="1200px" margin="0 auto">
       {/* saved shows */}
-      <SlideFade offsetY='-20px' in={isOpen}>
-        <Heading marginTop={[5, 10]} fontSize={[24, 24, 32]}>Saved shows</Heading>
-        <SimpleGrid minChildWidth='220px' marginTop={[5, 10]} spacing={['10px', '30px']}>
-          {savedShows.map((item) => (
-            <ShowCard key={item.show.id} item={item.show} />
-          ))}
-        </SimpleGrid >
-        {next && <Box mt={10}><More oldOffset={offset} setNewOffset={() => setoffset(offset+20)} label="More shows..." /></Box>}
-      </SlideFade >
+      {savedShows.length > 0 ? (
+        <SlideFade offsetY='-20px' in={isOpen}>
+          <Heading marginTop={[5, 10]} fontSize={[24, 24, 32]}>Saved shows</Heading>
+          <SimpleGrid minChildWidth='220px' marginTop={[5, 10]} spacing={['10px', '30px']}>
+            {savedShows.map((item) => (
+              <ShowCard key={item.show.id} item={item.show} />
+            ))}
+          </SimpleGrid >
+          {next && <Box mt={10}><More oldOffset={offset} setNewOffset={() => setoffset(offset+20)} label="More shows..." /></Box>}
+        </SlideFade>
+      ) : (
+        <Grid marginTop={40} placeItems='center' fontSize={32} fontWeight={600}>No saved shows</Grid>
+      )}
     </Box>
   );
 }
